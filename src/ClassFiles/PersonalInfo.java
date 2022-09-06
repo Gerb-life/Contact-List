@@ -6,9 +6,9 @@ public class PersonalInfo {
     /** First name */
     public String first;
     /** Last name */
-    private String last;
+    public String last;
     /** Marital Status */
-    private MaritalStatus status;
+    public MaritalStatus status;
 
     public PersonalInfo(String first , String last , MaritalStatus status){
         this.first = first;

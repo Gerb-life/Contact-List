@@ -2,6 +2,8 @@ package ClassFiles;
 
 import Interfaces.ContactIF;
 
+import java.util.Locale;
+
 public class Contact implements ContactIF, Cloneable{
     /** Personal information */
     private PersonalInfo person;
@@ -41,13 +43,22 @@ public class Contact implements ContactIF, Cloneable{
     @Override
     public boolean hasValue(String attribute, String value) throws IllegalArgumentException {
         attribute = attribute.toLowerCase();
+        value = value.toLowerCase();
         switch(attribute){
             case "first":
-                if(this.person.first == value){
+                if(this.person.first.toLowerCase().equals(value)){
                     return true;
                 }
 
+            case "last":
+                if(this.person.last.toLowerCase().equals(value)){
+                    return true;
+                }
+
+
         }
+
+
         return false;
     }
 
