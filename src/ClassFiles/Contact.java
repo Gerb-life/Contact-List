@@ -1,8 +1,7 @@
 package ClassFiles;
 
+import Enums.MaritalStatus;
 import Interfaces.ContactIF;
-
-import java.util.Locale;
 
 public class Contact implements ContactIF, Cloneable{
     /** Personal information */
@@ -55,7 +54,38 @@ public class Contact implements ContactIF, Cloneable{
                     return true;
                 }
 
+            case "status":
+                if(this.person.status.toString().toLowerCase().equals(value)){
+                    return true;
+                }
 
+            case "address":
+                if(this.address.streetAddress.toLowerCase().equals(value)){
+                    return true;
+                }
+            case "city":
+                if(this.address.city.toLowerCase().equals(value)){
+                    return true;
+                }
+
+            case "state":
+                if(this.address.state.toLowerCase().equals(value)){
+                    return true;
+                }
+
+            case "zip":
+                if(this.address.zip.toLowerCase().equals(value)) {
+                    return true;
+                }
+            case "phone":
+                if(this.phone.toLowerCase().equals(value)){
+                    return true;
+                }
+
+            case "email":
+                if(this.email.toLowerCase().equals(value)){
+                    return true;
+                }
         }
 
 
@@ -64,6 +94,48 @@ public class Contact implements ContactIF, Cloneable{
 
     @Override
     public void setValue(String attribute, String value) throws IllegalArgumentException {
+        switch(attribute){
+            case "first":
+                this.person.first = value;
+                break;
+            case "last":
+                this.person.last = value;
+                break;
+            case "status":
+                //this.person.status = MaritalStatus.valueOf(value);
+                break;
+            case "address":
+                this.address.streetAddress = value;
+                break;
+            case "city":
+                this.address.city = value;
+                break;
+
+            case "state":
+                this.address.state = value;
+                break;
+
+            case "zip":
+               this.address.zip = value;
+                break;
+            case "phone":
+                this.phone = value;
+                break;
+
+            case "email":
+                this.email = value;
+                break;
+                }
+
+
+
+    }
+
+    public String toString(){
+       return this.person.first + " " + this.person.last + " " + this.person.status + " " + this.email + " "+ this.phone
+               + " " + this.address.streetAddress + " " + this.address.state + " " + this.address.city + " " +
+               this.address.zip;
 
     }
 }
+

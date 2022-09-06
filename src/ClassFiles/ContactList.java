@@ -9,9 +9,12 @@ public class ContactList {
         Contact.Address ca = new Contact.Address("Fairview" , "Sylva" , "NC" ,"28779" );
         Contact steve = new Contact(ps , ca , "8284766872" , "chumbo@yahoo.comm");
 
-        System.out.println(steve.hasValue("first" ,  "steve"));
-        System.out.println(steve.hasValue("last" ,  "JObs"));
-        System.out.println(steve.hasValue("status" , "married"));
+        System.out.println(steve.toString());
+        steve.setValue("first" , "john");
+
+        System.out.println(steve.toString());
+
+
 
     }
 }
