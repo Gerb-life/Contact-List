@@ -1,6 +1,5 @@
 package ClassFiles;
 
-import Enums.MaritalStatus;
 import Interfaces.ContactIF;
 
 public class Contact implements ContactIF, Cloneable{
@@ -19,6 +18,8 @@ public class Contact implements ContactIF, Cloneable{
         this.phone = phone;
         this.email = email;
     }
+
+
 
     static class Address{
         private String streetAddress;
