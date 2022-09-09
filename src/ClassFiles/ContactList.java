@@ -4,7 +4,8 @@ package ClassFiles;
 import Enums.MaritalStatus;
 
 import java.io.*;
-import java.nio.Buffer;
+
+import java.util.Locale;
 import java.util.Scanner;
 
 public class ContactList {
@@ -79,6 +80,13 @@ public class ContactList {
             return contactsP;
 
         }
+        else if(people[0].toLowerCase().charAt(0) == 'w'){
+            String[][] contactsW = new String[people.length/12][12];
+            for(int i = 0 ; i < people.length; i++){
+                contactsW[i/12][i%12] = people[i];
+            }
+            return contactsW;
+        }
 
 
 
@@ -86,46 +94,51 @@ public class ContactList {
     }
 
     public Contact createContacts(String[] strings , Character pw){
-
+            String email ;
+            String phone ;
+            String label ;
         if(pw == 'p' || pw == 'P'){
             PersonalInfo ps = new PersonalInfo(strings[0] , strings[1] );
-            String email = strings[2];
-            String phone = strings[3];
+            email = strings[2];
+            phone = strings[3];
             Contact.Address address = new Contact.Address(strings[4] , strings[5] , strings[6] , strings[7]);
-            String label = strings[8];
+            label = strings[8];
 
             Contact personal = new PersonalContact(ps , address , phone , email , label);
 
             return personal;
+        }
+        else if(pw == 'w' || pw == 'W'){
+            PersonalInfo ps = new PersonalInfo(strings[0] , strings[1] , MaritalStatus.valueOf(strings[2].toUpperCase()));
+            email = strings[3];
+            phone = strings[4];
+            Contact.Address address = new Contact.Address(strings[5] , strings[6] , strings[7] , strings[8]);
+
+            Contact work = new WorkContact(ps , address , phone , email , strings[9] , strings[10] , strings[11]);
+
+            return work;
         }
         return null;
     }
 
     public static void main(String[] args) throws Exception {
         //display();
-        PersonalInfo ps = new PersonalInfo("Steve" , "Jobs" , MaritalStatus.MARRIED);
-        Contact.Address ca = new Contact.Address("Fairview" , "Sylva" , "NC" ,"28779" );
-        Contact steve = new Contact(ps , ca , "8284766872" , "chumbo@yahoo.comm");
 
-        PersonalInfo ps1 = new PersonalInfo("Grechen" , "Smith" , MaritalStatus.DIVORCED);
-        Contact.Address ca1 = new Contact.Address("Smokey" , "Waynesville" , "NC" ,"28788" );
-        Contact grechen = new Contact(ps1 , ca1 , "1232132" , "yehaw@gamil.com");
 
 
         Table<Contact> tb = new Table<>();
-        tb.addFirst(steve);
-        tb.addFirst(grechen);
+
         File f =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\personalContacts.txt");
         File f2 =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\workContacts.txt");
 
-        System.out.println(tb.getNode(0).toString());
+
 
         ContactList ctl = new ContactList();
-        String[] str = ctl.readFile(f);
+        String[] str = ctl.readFile(f2);
 
         String[][] contacts = ctl.separateContacts(str);
         for(int i = 0 ; i < contacts.length;i++){
-            Contact ct = ctl.createContacts(contacts[i],'p');
+            Contact ct = ctl.createContacts(contacts[i],'w');
             tb.addFirst(ct);
         }
         System.out.println(tb.getCount());
@@ -133,7 +146,7 @@ public class ContactList {
         System.out.println(tb.getNode(1).toString());
         System.out.println(tb.getNode(2).toString());
         System.out.println(tb.getNode(3).toString());
-        System.out.println(tb.getNode(4).toString());
+
 
     }
 }

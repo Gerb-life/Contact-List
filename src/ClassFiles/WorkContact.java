@@ -12,6 +12,9 @@ public class WorkContact extends Contact implements Cloneable{
 
     public WorkContact(PersonalInfo person, Address address, String phone, String email,String title,String company , String department) {
         super(person, address, phone, email);
+        this.title = title;
+        this.company = company;
+        this.department = department;
 
     }
 }
