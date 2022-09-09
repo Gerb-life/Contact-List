@@ -53,18 +53,52 @@ public class ContactList {
         }
 
     }
-    public void readFile() throws Exception{
-        File f =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\personalContacts.txt");
+    public String[] readFile(File f) throws Exception{
+
         BufferedReader br = new BufferedReader(new FileReader(f));
         String st;
-
+        String temp = "";
+        String[] clients;
         while((st = br.readLine()) != null){
-            String tokens = String.valueOf(st.split(","));
-            for(int i = 0; i < tokens.length(); i++) {
-                //System.out.println(tokens[i]);
+            temp += st;
+        }
+       clients = temp.split(",");
+        for(int i = 0 ; i < clients.length; i++){
+            clients[i] = clients[i].trim();
+
+        }
+        return clients;
+    }
+    public String[][] separateContacts(String[] people){
+        //if the first letter of string arr is p then separate contacts based on number of attributes
+        if(people[0].toLowerCase().charAt(0) == 'p'){
+            String[][] contactsP = new String[people.length/9][9];
+            for(int i = 0 ; i < people.length; i++){
+                contactsP[i/9][i%9] = people[i];
             }
+            return contactsP;
+
         }
 
+
+
+        return null;
+    }
+
+    public Contact createContacts(String[] strings , Character pw){
+
+        if(pw == 'p' || pw == 'P'){
+            PersonalInfo ps = new PersonalInfo(strings[0] , strings[1] );
+            String email = strings[2];
+            String phone = strings[3];
+            Contact.Address address = new Contact.Address(strings[4] , strings[5] , strings[6] , strings[7]);
+            String label = strings[8];
+
+            Contact personal = new PersonalContact(ps , address , phone , email , label);
+
+            return personal;
+        }
+        return null;
     }
 
     public static void main(String[] args) throws Exception {
@@ -81,12 +115,25 @@ public class ContactList {
         Table<Contact> tb = new Table<>();
         tb.addFirst(steve);
         tb.addFirst(grechen);
+        File f =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\personalContacts.txt");
+        File f2 =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\workContacts.txt");
 
-        //System.out.println(tb.getNode(0).toString());
-        //System.out.println(tb.getNode(1).toString());
-        ContactList ct = new ContactList();
-        ct.readFile();
+        System.out.println(tb.getNode(0).toString());
 
+        ContactList ctl = new ContactList();
+        String[] str = ctl.readFile(f);
+
+        String[][] contacts = ctl.separateContacts(str);
+        for(int i = 0 ; i < contacts.length;i++){
+            Contact ct = ctl.createContacts(contacts[i],'p');
+            tb.addFirst(ct);
+        }
+        System.out.println(tb.getCount());
+        System.out.println(tb.getNode(0).toString());
+        System.out.println(tb.getNode(1).toString());
+        System.out.println(tb.getNode(2).toString());
+        System.out.println(tb.getNode(3).toString());
+        System.out.println(tb.getNode(4).toString());
 
     }
 }

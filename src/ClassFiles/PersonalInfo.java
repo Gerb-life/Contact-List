@@ -10,9 +10,15 @@ public class PersonalInfo {
     /** Marital Status */
     public MaritalStatus status;
 
-    public PersonalInfo(String first , String last , MaritalStatus status){
+    public PersonalInfo(String last , String first , MaritalStatus status){
         this.first = first;
         this.last = last;
         this.status = status;
+    }
+
+    public PersonalInfo(String last , String first ){
+        this.first = first;
+        this.last = last;
+
     }
 }

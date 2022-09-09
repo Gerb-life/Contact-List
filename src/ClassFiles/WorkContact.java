@@ -1,6 +1,6 @@
 package ClassFiles;
 
-import ClassFiles.Contact;
+
 
 public class WorkContact extends Contact implements Cloneable{
     /** Job title */
@@ -10,7 +10,8 @@ public class WorkContact extends Contact implements Cloneable{
     /** ClassFiles.Contact’s department */
     private String department;
 
-    public WorkContact(PersonalInfo person, Contact.Address address, String phone, String email) {
+    public WorkContact(PersonalInfo person, Address address, String phone, String email,String title,String company , String department) {
         super(person, address, phone, email);
+
     }
 }
