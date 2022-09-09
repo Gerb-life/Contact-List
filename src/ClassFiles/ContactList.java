@@ -1,6 +1,10 @@
 package ClassFiles;
 
 
+import Enums.MaritalStatus;
+
+import java.io.*;
+import java.nio.Buffer;
 import java.util.Scanner;
 
 public class ContactList {
@@ -49,14 +53,39 @@ public class ContactList {
         }
 
     }
-    public static void main(String[] args){
-        display();
-       /** PersonalInfo ps = new PersonalInfo("Steve" , "Jobs" , MaritalStatus.MARRIED);
+    public void readFile() throws Exception{
+        File f =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\personalContacts.txt");
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        String st;
+
+        while((st = br.readLine()) != null){
+            String tokens = String.valueOf(st.split(","));
+            for(int i = 0; i < tokens.length(); i++) {
+                //System.out.println(tokens[i]);
+            }
+        }
+
+    }
+
+    public static void main(String[] args) throws Exception {
+        //display();
+        PersonalInfo ps = new PersonalInfo("Steve" , "Jobs" , MaritalStatus.MARRIED);
         Contact.Address ca = new Contact.Address("Fairview" , "Sylva" , "NC" ,"28779" );
         Contact steve = new Contact(ps , ca , "8284766872" , "chumbo@yahoo.comm");
-    */
+
+        PersonalInfo ps1 = new PersonalInfo("Grechen" , "Smith" , MaritalStatus.DIVORCED);
+        Contact.Address ca1 = new Contact.Address("Smokey" , "Waynesville" , "NC" ,"28788" );
+        Contact grechen = new Contact(ps1 , ca1 , "1232132" , "yehaw@gamil.com");
 
 
+        Table<Contact> tb = new Table<>();
+        tb.addFirst(steve);
+        tb.addFirst(grechen);
+
+        //System.out.println(tb.getNode(0).toString());
+        //System.out.println(tb.getNode(1).toString());
+        ContactList ct = new ContactList();
+        ct.readFile();
 
 
     }

@@ -1,30 +1,6 @@
-//package ClassFiles;
+package ClassFiles;
 
-//public class Table <T extends Contact> {
-    /**
-     * First record in the table
-     */
-  //  private Node head;
-    /**
-     * Last record in the table
-     */
-  //  private Node tail;
-    /**
-     * Label for the table
-     */
-   // private String title;
 
-   // private class Node {
-   //     int data;
-   //     Node next;
-
-    //    public Node(int data) {
-   //         this.data = data;
-   //         this.next = null;
-    //    }
-
-  //  }
-//}
 
 import java.util.NoSuchElementException;
 
@@ -37,6 +13,9 @@ public class Table <T> {
         public Node(T value) {
             this.value = value;
         }
+        public T getValue(){
+            return this.value;
+        }
     }
 
     /**
@@ -47,15 +26,19 @@ public class Table <T> {
      * Last record in the table
      */
     private Table.Node last;
+    private int count;
 
     //addFirst
     public void addFirst(T item){
         var node = new Table.Node(item);
-        if(isEmpty())
-            first =  last = node;
+        if(isEmpty()) {
+            first = last = node;
+            count++;
+        }
         else{
             node.next = first;
             first = node;
+            count++;
         }
     }
     private boolean isEmpty(){
@@ -64,11 +47,14 @@ public class Table <T> {
     //addLast
     public void addLast(T item) {
         var node = new Table.Node(item);
-        if (isEmpty())
+        if (isEmpty()) {
             first = last = node;
+            count++;
+        }
         else {
             last.next = node;
             last = node;
+            count++;
         }
     }
     //deleteFirts
@@ -99,12 +85,12 @@ public class Table <T> {
             return;
         }
 
-        var previous = getPreviouse(last);
+        var previous = getPrevious(last);
         last = previous;
         last.next = null;
 
     }
-    private Table.Node getPreviouse(Table.Node node){
+    private Table.Node getPrevious(Table.Node node){
         var current = first;
         while (current != null){
             if (current.next == node) return current;
@@ -126,4 +112,26 @@ public class Table <T> {
             index++;}
         return -1;
     }
+
+
+
+    public int getCount(){
+        return this.count;
+    }
+    /**
+     * Method used to get a node at a certain index.
+     * */
+    public T getNode(int index){
+        Node current = first;
+        int count = 0;
+        while(current != null){
+            if(count == index){
+                return (T) current.value;
+            }
+            count++;
+            current = current.next;
+        }
+        return null;
+    }
+
 }
