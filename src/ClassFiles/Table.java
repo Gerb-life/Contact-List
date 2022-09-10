@@ -134,4 +134,25 @@ public class Table <T> {
         return null;
     }
 
+    public void printTable(Table table){
+        for(int i = 0 ; i < table.getCount(); i++){
+            System.out.println(table.getNode(i).toString());
+        }
+    }
+
+    Table<T>union(Table<T>tb1 , Table<T> tb2){
+        Table<T> tb3 = new Table<T>();
+        for(int i = 0 ; i< tb1.getCount(); i++){
+            if(! tb3.contains(tb1.getNode(i))){
+                tb3.addFirst(tb1.getNode(i));
+            }
+        for(int j = 0 ; j <tb2.getCount(); j++){
+            if(! tb3.contains(tb2.getNode(j))){
+                tb3.addFirst(tb2.getNode(j));
+            }
+        }
+        }
+        return tb3;
+    }
+
 }

@@ -9,10 +9,34 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class ContactList {
-    /**This is the driver for the project**/
+    public static void fileEntry(){
 
-    public static void display() {
+    }
+
+    public static void display() throws Exception {
         int screen = -1;
+
+        Table<Contact> tb = new Table<>();
+        Table<Contact> tb2 = new Table<>();
+
+        File f =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\personalContacts.txt");
+        File f2 =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\workContacts.txt");
+        ContactList ctl = new ContactList();
+
+        String[] str = ctl.readFile(f2);
+        String[] str2 = ctl.readFile(f);
+
+        String[][] contacts = ctl.separateContacts(str);
+        for(int i = 0 ; i < contacts.length;i++){
+            Contact ct = ctl.createContacts(contacts[i],'w');
+            tb.addFirst(ct);
+        }
+
+        String[][] contacts1 = ctl.separateContacts(str2);
+        for(int i = 0 ; i < contacts1.length;i++){
+            Contact ct = ctl.createContacts(contacts1[i],'p');
+            tb2.addFirst(ct);
+        }
 
 
         while (screen != 0) {
@@ -27,25 +51,31 @@ public class ContactList {
             Scanner stdin = new Scanner(System.in);
             int option = stdin.nextInt();
             if(option == 0){
+                System.out.println("Thank you have a nice day!");
                 screen = 0;
             }
             else if(option ==1){
                 /** do intersect*/
+
+
             }
             else if(option ==2){
-                /** do intersect*/
+                /** do Difference*/
             }
             else if(option ==3){
-                /** do intersect*/
+                /** do Union*/
+                Table<Contact> tb3 = new Table<>();
+                tb3 = tb3.union(tb , tb2);
+                tb3.printTable(tb3);
             }
             else if(option ==4){
-                /** do intersect*/
+                /** do Select*/
             }
             else if(option ==5){
-                /** do intersect*/
+                /** do Remove*/
             }
             else if(option ==6){
-                /** do intersect*/
+                /** do Print Both*/
             }
             else{
                 System.out.println("Invalid option");
@@ -122,30 +152,11 @@ public class ContactList {
     }
 
     public static void main(String[] args) throws Exception {
-        //display();
+        display();
 
 
 
-        Table<Contact> tb = new Table<>();
 
-        File f =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\personalContacts.txt");
-        File f2 =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\workContacts.txt");
-
-
-
-        ContactList ctl = new ContactList();
-        String[] str = ctl.readFile(f2);
-
-        String[][] contacts = ctl.separateContacts(str);
-        for(int i = 0 ; i < contacts.length;i++){
-            Contact ct = ctl.createContacts(contacts[i],'w');
-            tb.addFirst(ct);
-        }
-        System.out.println(tb.getCount());
-        System.out.println(tb.getNode(0).toString());
-        System.out.println(tb.getNode(1).toString());
-        System.out.println(tb.getNode(2).toString());
-        System.out.println(tb.getNode(3).toString());
 
 
     }

@@ -138,5 +138,13 @@ public class Contact implements ContactIF, Cloneable{
                this.address.zip;
 
     }
+    public boolean equals(Contact ct1) {
+        if(this.address == ct1.address && this.email == ct1.email && this.person == ct1.person && this.phone == ct1.phone){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
 
