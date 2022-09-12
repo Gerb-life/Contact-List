@@ -154,5 +154,15 @@ public class Table <T> {
         }
         return tb3;
     }
+    
+    Table<T>intersect(Table<T> tb1, Table<T> tb2){
+        Table<T>tb3 = new Table<T>();
+        for(int i = 0; i < tb1.getCount(); i++){
+            if(tb2.contains(tb1.getNode(i))){
+                tb3.addLast(tb1.getNode(i));
+            }
+        }
+        return tb3;
+    }
 
 }
