@@ -10,4 +10,7 @@ public class PersonalContact extends Contact implements Cloneable{
         super(person, address, phone, email);
         this.label = label;
     }
+    public String toString() {
+        return "Category: " + label + "\n" + person + "phone: " + phone  + "\n" + address + "\n" + email ;
+    }
 }
