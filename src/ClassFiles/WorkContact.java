@@ -17,4 +17,8 @@ public class WorkContact extends Contact implements Cloneable{
         this.department = department;
 
     }
+    public String toString(){
+        return "Job Title: " + title + "\n" + "Company: " + company + "\n" + "Department: " + department +  "\n" +
+                person + "  phone: " + phone  + "\n" + address + "\n" + email ;
+    }
 }
