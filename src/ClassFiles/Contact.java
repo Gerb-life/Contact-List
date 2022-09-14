@@ -33,6 +33,18 @@ public class Contact implements ContactIF, Cloneable{
             this.state = state;
             this.zip = zip;
         }
+        public String getStreetAddress(){
+            return this.streetAddress;
+        }
+        public String getCity(){
+            return this.city;
+        }
+        public String getState(){
+            return this.state;
+        }
+        public String getZip(){
+            return this.zip;
+        }
     }
 
     @Override
@@ -145,6 +157,18 @@ public class Contact implements ContactIF, Cloneable{
         else{
             return false;
         }
+    }
+    public PersonalInfo getPerson(){
+        return this.person;
+    }
+    public Address getAddress(){
+        return this.address;
+    }
+    public String getPhone(){
+        return this.phone;
+    }
+    public String getEmail(){
+        return this.email;
     }
 }
 

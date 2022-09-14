@@ -18,14 +18,15 @@ public class ContactList {
         Table<Contact> tb = new Table<>();
         Table<Contact> tb2 = new Table<>();
 
-        File f =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\personalContacts.txt");
-        File f2 =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\workContacts.txt");
+        File f =  new File("D:\\Users\\quibl\\IdeaProjects\\Contact-List\\src\\TextFiles\\personalContacts.txt");
+        File f2 =  new File("D:\\Users\\quibl\\IdeaProjects\\Contact-List\\src\\TextFiles\\workContacts.txt");
         ContactList ctl = new ContactList();
 
         String[] str = ctl.readFile(f2);
         String[] str2 = ctl.readFile(f);
 
         String[][] contacts = ctl.separateContacts(str);
+
         for(int i = 0 ; i < contacts.length;i++){
             Contact ct = ctl.createContacts(contacts[i],contacts[0][0].charAt(0));
             tb.addFirst(ct);
@@ -67,12 +68,16 @@ public class ContactList {
 
                 Table<Contact> tb3 = new Table<>();
                 if(groupNum ==1){
+                    System.out.println("==============Group 1 ==============");
                     tb3 = tb3.intersect(tb , attribute , value);
                     tb3.printTable(tb3);
+                    System.out.println("==============Group 1 ==============");
                 }
                 else if(groupNum ==2) {
+                    System.out.println("==============Group 2 ==============");
                     tb3 = tb3.intersect(tb2 , attribute , value);
                     tb3.printTable(tb3);
+                    System.out.println("==============Group 2 ==============");
                 }
             }
             else if(option ==2){
@@ -82,12 +87,16 @@ public class ContactList {
                 int groupNum = sc.nextInt();
                 Table<Contact> tb3 = new Table<>();
                 if(groupNum == 1){
+                    System.out.println("==============Group 1 ==============");
                     tb3 = tb2.difference(tb);
                     tb3.printTable(tb3);
+                    System.out.println("==============Group 1 ==============");
                 }
                 else if(groupNum == 2){
+                    System.out.println("==============Group 2 ==============");
                     tb3 = tb.difference(tb2);
                     tb3.printTable(tb3);
+                    System.out.println("==============Group 2 ==============");
                 }
                 else{
                     System.out.println("Please enter a valid group number");
@@ -108,7 +117,7 @@ public class ContactList {
                 String attribute = sc.next();
                 System.out.println("Enter value");
                 String value = sc.next();
-                Table<Contact> tb3 = new Table<>();
+                Table<Contact> tb3 ;
                 if(groupNum == 1 ){
                     tb3 = tb.select(attribute , value);
                     tb3.printTable(tb3);

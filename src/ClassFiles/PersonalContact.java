@@ -11,6 +11,10 @@ public class PersonalContact extends Contact implements Cloneable{
         this.label = label;
     }
     public String toString() {
-        return "Category: " + label + "\n" + person + "phone: " + phone  + "\n" + address + "\n" + email ;
+        return "Category: " + label + "\n\t\t" +
+                this.getPerson().last +","+ this.getPerson().first + "  Phone: " + this.getPhone()  + "\n\t\t" +
+                this.getAddress().getStreetAddress() + "\n\t\t" +
+                this.getAddress().getCity() + "," + this.getAddress().getState() + " " + this.getAddress().getZip()+ "\n\t\t"+
+                this.getEmail() + "\n --------------------------------";
     }
 }
