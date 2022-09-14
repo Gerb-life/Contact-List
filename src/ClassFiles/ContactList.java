@@ -9,9 +9,8 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class ContactList {
-    public static void fileEntry(){
 
-    }
+
 
     public static void display() throws Exception {
         int screen = -1;
@@ -28,15 +27,17 @@ public class ContactList {
 
         String[][] contacts = ctl.separateContacts(str);
         for(int i = 0 ; i < contacts.length;i++){
-            Contact ct = ctl.createContacts(contacts[i],'w');
+            Contact ct = ctl.createContacts(contacts[i],contacts[0][0].charAt(0));
             tb.addFirst(ct);
         }
+        System.out.println(contacts[0][0].charAt(0));
 
         String[][] contacts1 = ctl.separateContacts(str2);
         for(int i = 0 ; i < contacts1.length;i++){
-            Contact ct = ctl.createContacts(contacts1[i],'p');
+            Contact ct = ctl.createContacts(contacts1[i],contacts1[0][0].charAt(0));
             tb2.addFirst(ct);
         }
+
 
 
         while (screen != 0) {
@@ -56,11 +57,41 @@ public class ContactList {
             }
             else if(option ==1){
                 /** do intersect*/
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Enter Group");
+                int groupNum = sc.nextInt();
+                System.out.println("Enter attribute");
+                String attribute = sc.next();
+                System.out.println("Enter value");
+                String value = sc.next();
 
-
+                Table<Contact> tb3 = new Table<>();
+                if(groupNum ==1){
+                    tb3 = tb3.intersect(tb , attribute , value);
+                    tb3.printTable(tb3);
+                }
+                else if(groupNum ==2) {
+                    tb3 = tb3.intersect(tb2 , attribute , value);
+                    tb3.printTable(tb3);
+                }
             }
             else if(option ==2){
                 /** do Difference*/
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Enter Group");
+                int groupNum = sc.nextInt();
+                Table<Contact> tb3 = new Table<>();
+                if(groupNum == 1){
+                    tb3 = tb2.difference(tb);
+                    tb3.printTable(tb3);
+                }
+                else if(groupNum == 2){
+                    tb3 = tb.difference(tb2);
+                    tb3.printTable(tb3);
+                }
+                else{
+                    System.out.println("Please enter a valid group number");
+                }
             }
             else if(option ==3){
                 /** do Union*/
@@ -70,12 +101,49 @@ public class ContactList {
             }
             else if(option ==4){
                 /** do Select*/
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Enter Group");
+                int groupNum = sc.nextInt();
+                System.out.println("Enter attribute");
+                String attribute = sc.next();
+                System.out.println("Enter value");
+                String value = sc.next();
+                Table<Contact> tb3 = new Table<>();
+                if(groupNum == 1 ){
+                    tb3 = tb.select(attribute , value);
+                    tb3.printTable(tb3);
+                }
+                else if(groupNum == 2 ){
+                    tb3 = tb2.select(attribute , value);
+                    tb3.printTable(tb3);
+                }
+
             }
             else if(option ==5){
                 /** do Remove*/
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Enter Group");
+                int groupNum = sc.nextInt();
+                System.out.println("Enter attribute");
+                String attribute = sc.next();
+                System.out.println("Enter value");
+                String value = sc.next();
+
+
+                if(groupNum == 1 ){
+                    tb.remove(attribute , value);
+                    tb.printTable(tb);
+                }
+                else if(groupNum == 2 ){
+                    tb2.remove(attribute , value);
+                    tb2.printTable(tb2);
+                }
+
             }
             else if(option ==6){
                 /** do Print Both*/
+                tb.printTable(tb);
+                tb2.printTable(tb2);
             }
             else{
                 System.out.println("Invalid option");
@@ -98,6 +166,7 @@ public class ContactList {
             clients[i] = clients[i].trim();
 
         }
+        br.close();
         return clients;
     }
     public String[][] separateContacts(String[] people){
@@ -150,6 +219,7 @@ public class ContactList {
         }
         return null;
     }
+
 
     public static void main(String[] args) throws Exception {
         display();

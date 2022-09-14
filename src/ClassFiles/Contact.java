@@ -55,10 +55,10 @@ public class Contact implements ContactIF, Cloneable{
                     return true;
                 }
 
-            case "status":
-                if(this.person.status.toString().toLowerCase().equals(value)){
-                    return true;
-                }
+            //case "status":
+              //  if(this.person.status.toString().toLowerCase().equals(value)){
+               //     return true;
+              //  }
 
             case "address":
                 if(this.address.streetAddress.toLowerCase().equals(value)){

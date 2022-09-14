@@ -90,6 +90,29 @@ public class Table <T> {
         last.next = null;
 
     }
+
+    public void removeNode(int index){
+        if(first == null){
+             return;
+        }
+        Table.Node temp = first;
+
+        if(index == 0){
+            first = temp.next;
+            return;
+        }
+
+        for (int i = 0; temp != null && i < index - 1; i++) {
+            temp = temp.next;
+        }
+        if (temp == null || temp.next == null) {
+            return;
+        }
+        Table.Node next = temp.next.next;
+        temp.next = next;
+        count--;
+    }
+
     private Table.Node getPrevious(Table.Node node){
         var current = first;
         while (current != null){
@@ -98,7 +121,7 @@ public class Table <T> {
         }
         return null;
     }
-    //contaisns
+    //contains
     public boolean contains(T item){
         return indexOf(item) !=-1;
     }
@@ -140,7 +163,7 @@ public class Table <T> {
         }
     }
 
-    Table<T>union(Table<T>tb1 , Table<T> tb2){
+    public Table<T>union(Table<T>tb1 , Table<T> tb2){
         Table<T> tb3 = new Table<T>();
         for(int i = 0 ; i< tb1.getCount(); i++){
             if(! tb3.contains(tb1.getNode(i))){
@@ -155,14 +178,51 @@ public class Table <T> {
         return tb3;
     }
     
-    Table<T>intersect(Table<T> tb1, Table<T> tb2){
-        Table<T>tb3 = new Table<T>();
-        for(int i = 0; i < tb1.getCount(); i++){
-            if(tb2.contains(tb1.getNode(i))){
-                tb3.addLast(tb1.getNode(i));
+    public Table<Contact >intersect(Table<Contact> tb1, String attribute , String value){
+        Table<Contact> newTable = new Table<>();
+
+        for (int i = 0; i < tb1.getCount(); i++) {
+            if (tb1.getNode(i).hasValue(attribute, value)) {
+                newTable.addFirst(tb1.getNode(i));
+            }
+        }
+        return newTable;
+    }
+
+    public Table<Contact> difference(Table<Contact> tb1){
+        Table <Contact> tb3 = new Table<>();
+        for(int i = 0 ; i < this.getCount(); i++){
+            for(int j = 0; j < tb1.getCount(); j++){
+                if(! this.getNode(i).equals(tb1.getNode(j))){
+                    if(tb3.contains((Contact) this.getNode(i)) == false){
+                        tb3.addFirst((Contact) this.getNode(i));
+                    }
+                }
             }
         }
         return tb3;
     }
+    public Table<Contact> select(String attribute , String value){
+        Table <Contact> tb3 = new Table<>();
+
+        for(int i = 0 ; i < this.getCount(); i++){
+            Contact ct = (Contact) this.getNode(i);
+            if(ct.hasValue(attribute , value)){
+                 tb3.addFirst(ct);
+            }
+        }
+        return tb3;
+    }
+
+    public void remove(String attribute , String value){
+        for(int i = 0 ; i < this.getCount(); i++){
+            Contact ct = (Contact) this.getNode(i);
+            if(ct.hasValue(attribute,value)){
+                this.removeNode(i);
+                return;
+            }
+        }
+    }
+
 
 }
