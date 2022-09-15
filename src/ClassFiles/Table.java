@@ -233,6 +233,7 @@ public class Table <T> {
             Contact ct = (Contact) this.getNode(i);
             if(ct.hasValue(attribute,value)){
                 this.removeNode(i);
+
                 return;
             }
         }
