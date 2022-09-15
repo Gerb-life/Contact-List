@@ -21,7 +21,7 @@ public class Contact implements ContactIF, Cloneable{
     
     
     /**
-     * This construcks a conctact with a specified person, the persons addres, phone number
+     * This constructs a contact with a specific person, the persons addres, phone number
      * and email
      * @param person the name, last name and marital status of a Contact
      * @param address the address of the contact
