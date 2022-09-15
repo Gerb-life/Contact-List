@@ -158,23 +158,36 @@ public class Table <T> {
     }
 
     public void printTable(Table table){
-        for(int i = 0 ; i < table.getCount(); i++){
-            System.out.println(table.getNode(i).toString());
+        for(int i = 0 ; i < this.getCount(); i++){
+            System.out.println(this.getNode(i).toString());
         }
     }
 
-    public Table<T>union(Table<T>tb1 , Table<T> tb2){
+    public Table<T>union(Table<T>tb1){
         Table<T> tb3 = new Table<T>();
-        for(int i = 0 ; i< tb1.getCount(); i++){
-            if(! tb3.contains(tb1.getNode(i))){
-                tb3.addFirst(tb1.getNode(i));
-            }
-        for(int j = 0 ; j <tb2.getCount(); j++){
-            if(! tb3.contains(tb2.getNode(j))){
-                tb3.addFirst(tb2.getNode(j));
-            }
+        for(int i = 0; i < this.getCount(); i++){
+            tb3.addFirst(this.getNode(i));
         }
-        }
+
+       for(int i = 0 ; i < tb1.getCount(); i++){
+           tb3.addFirst(tb1.getNode(i));
+       }
+
+       for(int i = 0 ; i < this.getCount();i++){
+           for(int j = 0 ; j < tb1.getCount(); j++){
+               Contact ct1 = (Contact) this.getNode(i);
+               Contact ct2 = (Contact) tb1.getNode(j);
+               if(ct1.equalsContact(ct2)){
+                   if(tb3.contains(this.getNode(i)) && tb3.contains(tb1.getNode(j))){
+                       tb3.remove("first" , ((Contact) tb1.getNode(j)).getPerson().first);
+                       tb3.count--;
+                   }
+               }
+
+           }
+       }
+
+
         return tb3;
     }
     
@@ -186,6 +199,7 @@ public class Table <T> {
                 newTable.addFirst(tb1.getNode(i));
             }
         }
+
         return newTable;
     }
 

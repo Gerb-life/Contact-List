@@ -15,31 +15,41 @@ public class ContactList {
     public static void display() throws Exception {
         int screen = -1;
 
-        Table<Contact> tb = new Table<>();
-        Table<Contact> tb2 = new Table<>();
+        Table<Contact> tb = new Table<>(); // work contact
+        Table<Contact> tb2 = new Table<>();// personal contact
 
-        File f =  new File("D:\\Users\\quibl\\IdeaProjects\\Contact-List\\src\\TextFiles\\personalContacts.txt");
-        File f2 =  new File("D:\\Users\\quibl\\IdeaProjects\\Contact-List\\src\\TextFiles\\workContacts.txt");
+        File f =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\personalContacts.txt");
+        File f2 =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\workContacts.txt");
         ContactList ctl = new ContactList();
 
+        // result from reading files
         String[] str = ctl.readFile(f2);
         String[] str2 = ctl.readFile(f);
 
-        String[][] contacts = ctl.separateContacts(str);
+        Character pw = str[0].charAt(0);
+        str[0] = str[0].substring(1);
+
+        Character pw2 = str2[0].charAt(0);
+        str2[0] = str2[0].substring(1);
+
+        String[][] contacts = ctl.separateContacts(str , pw);
 
         for(int i = 0 ; i < contacts.length;i++){
-            Contact ct = ctl.createContacts(contacts[i],contacts[0][0].charAt(0));
+            Contact ct = ctl.createContacts(contacts[i],pw);
             tb.addFirst(ct);
         }
-        System.out.println(contacts[0][0].charAt(0));
 
-        String[][] contacts1 = ctl.separateContacts(str2);
+
+        String[][] contacts1 = ctl.separateContacts(str2, pw2);
         for(int i = 0 ; i < contacts1.length;i++){
-            Contact ct = ctl.createContacts(contacts1[i],contacts1[0][0].charAt(0));
+            Contact ct = ctl.createContacts(contacts1[i],pw2);
             tb2.addFirst(ct);
         }
 
-
+        System.out.println(tb2.getNode(2).equalsContact(tb.getNode(3)));
+        Contact ct = tb2.getNode(2);
+        Contact ct2 = tb.getNode(3);
+        System.out.println(ct.equalsContact(ct2));
 
         while (screen != 0) {
             System.out.println("Welcome to database display \n\nPlease make a choice:\n" +
@@ -104,9 +114,24 @@ public class ContactList {
             }
             else if(option ==3){
                 /** do Union*/
-                Table<Contact> tb3 = new Table<>();
-                tb3 = tb3.union(tb , tb2);
-                tb3.printTable(tb3);
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Enter Group");
+                int groupNum = sc.nextInt();
+                Table<Contact> tb3 ;
+                if(groupNum == 1) {
+                    System.out.println("============== Group1,Group2 ==============");
+                    tb3 = tb.union(tb2);
+                    tb3.printTable(tb3);
+                    System.out.println("============== Group1,Group2 ==============");
+                }
+                else if(groupNum == 2) {
+                    System.out.println("============== Group2,Group1 ==============");
+                    tb3 = tb2.union(tb);
+                    tb3.printTable(tb3);
+                    System.out.println("============== Group2,Group1 ==============");
+                }
+
+
             }
             else if(option ==4){
                 /** do Select*/
@@ -178,9 +203,9 @@ public class ContactList {
         br.close();
         return clients;
     }
-    public String[][] separateContacts(String[] people){
+    public String[][] separateContacts(String[] people, Character pw){
         //if the first letter of string arr is p then separate contacts based on number of attributes
-        if(people[0].toLowerCase().charAt(0) == 'p'){
+        if(pw == 'p' || pw == 'P'){
             String[][] contactsP = new String[people.length/9][9];
             for(int i = 0 ; i < people.length; i++){
                 contactsP[i/9][i%9] = people[i];
@@ -188,7 +213,7 @@ public class ContactList {
             return contactsP;
 
         }
-        else if(people[0].toLowerCase().charAt(0) == 'w'){
+        else if(pw == 'w' || pw == 'W'){
             String[][] contactsW = new String[people.length/12][12];
             for(int i = 0 ; i < people.length; i++){
                 contactsW[i/12][i%12] = people[i];
