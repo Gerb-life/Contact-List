@@ -15,7 +15,7 @@ public class PersonalContact extends Contact implements Cloneable{
     /**
      * This Constructs a contact using the information from the contact.java file,
      * with the name, last name, marital status, address, phone number and label of the contact
-     * @param person the current contact's basic information
+     * @param person the current contact's basic information such as name, last name, marital status
      * @param address the address fo the current contact
      * @param phone the phone number for the current  contact
      * @param email the email for the current contact
