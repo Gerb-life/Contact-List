@@ -221,7 +221,7 @@ public class Table <T> {
 
         for(int i = 0 ; i < this.getCount(); i++){
             Contact ct = (Contact) this.getNode(i);
-            if(ct.hasValue(attribute , value)){
+            if(ct.hasValue(attribute , value.toUpperCase())){
                  tb3.addFirst(ct);
             }
         }

@@ -7,13 +7,16 @@
  */
 package ClassFiles;
 
+import Enums.MaritalStatus;
 import Interfaces.ContactIF;
+
+import java.util.Locale;
 
 public class Contact implements ContactIF, Cloneable{
     /** Personal information */
-    private PersonalInfo person;
+    private final PersonalInfo person;
     /** Current address */
-    private Address address;
+    private final Address address;
     /** Phone number */
     private String phone;
     /** Email */
@@ -21,7 +24,7 @@ public class Contact implements ContactIF, Cloneable{
     
     
     /**
-     * This constructs a contact with a specific person, the persons addres, phone number
+     * This constructs a contact with a specific person, the persons address, phone number
      * and email
      * @param person the name, last name and marital status of a Contact
      * @param address the address of the contact
@@ -34,6 +37,8 @@ public class Contact implements ContactIF, Cloneable{
         this.phone = phone;
         this.email = email;
     }
+
+
 
 
     /**
@@ -119,53 +124,63 @@ public class Contact implements ContactIF, Cloneable{
     public boolean hasValue(String attribute, String value) throws IllegalArgumentException {
         attribute = attribute.toLowerCase();
         value = value.toLowerCase();
+        boolean result = false;
         switch(attribute){
             case "first":
                 if(this.person.first.toLowerCase().equals(value)){
-                    return true;
+                    result = true;
+                    break;
                 }
 
             case "last":
                 if(this.person.last.toLowerCase().equals(value)){
-                    return true;
+                    result = true;
+                    break;
                 }
 
-           // case "status":
-               // if(this.person.status.toString().toLowerCase().equals(value)){
-               //     return true;
-               // }
+            case "status":
+                if(this.person.status.name().equals(value.toUpperCase())){
+                    result = true;
+                    break;
+                }
 
             case "address":
                 if(this.address.streetAddress.toLowerCase().equals(value)){
-                    return true;
+                    result = true;
+                    break;
                 }
             case "city":
                 if(this.address.city.toLowerCase().equals(value)){
-                    return true;
+                    result = true;
+                    break;
                 }
 
             case "state":
                 if(this.address.state.toLowerCase().equals(value)){
-                    return true;
+                    result = true;
+                    break;
                 }
 
             case "zip":
                 if(this.address.zip.toLowerCase().equals(value)) {
-                    return true;
+                    result = true;
+                    break;
                 }
             case "phone":
                 if(this.phone.toLowerCase().equals(value)){
-                    return true;
+                    result = true;
+                    break;
                 }
 
             case "email":
                 if(this.email.toLowerCase().equals(value)){
-                    return true;
+                    result = true;
+                    break;
                 }
         }
 
 
-        return false;
+        return result;
     }
     
     
@@ -185,7 +200,7 @@ public class Contact implements ContactIF, Cloneable{
                 this.person.last = value;
                 break;
             case "status":
-                //this.person.status = MaritalStatus.valueOf(value);
+                this.person.status = MaritalStatus.valueOf(value.toUpperCase());
                 break;
             case "address":
                 this.address.streetAddress = value;

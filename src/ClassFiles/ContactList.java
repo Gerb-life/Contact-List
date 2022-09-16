@@ -24,17 +24,17 @@ public class ContactList {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("File not found");
         }
         return tb;
     }
 
 
-    public static void display()  {
+    public static void display(String file1 , String file2)  {
         int screen = -1;
         ContactList ctl = new ContactList();
-        File f =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\personalContacts.txt");
-        File f2 =  new File("D:\\Users\\quibl\\IdeaProjects\\ContactList\\src\\TextFiles\\workContacts.txt");
+        File f =  new File(file1);
+        File f2 =  new File(file2);
         Table<Contact> tb = ctl.createTable(f); // personal contact
         Table<Contact> tb2 = ctl.createTable(f2);// work contact
 
@@ -196,7 +196,7 @@ public class ContactList {
             String phone ;
             String label ;
         if(pw == 'p' || pw == 'P'){
-            PersonalInfo ps = new PersonalInfo(strings[0] , strings[1] );
+            PersonalInfo ps = new PersonalInfo(strings[0] , strings[1] ,MaritalStatus.NA);
             email = strings[2];
             phone = strings[3];
             Contact.Address address = new Contact.Address(strings[4] , strings[5] , strings[6] , strings[7]);
@@ -286,8 +286,13 @@ public class ContactList {
 
 
 
-    public static void main(String[] args) throws Exception {
-        display();
+    public static void main(String[] args) {
+        System.out.println("Please enter file for group 1");
+        Scanner sc = new Scanner(System.in);
+        String f1 = sc.nextLine();
+        System.out.println("Please enter file for group 2");
+        String f2 = sc.nextLine();
+        display(f1 , f2);
 
 
 

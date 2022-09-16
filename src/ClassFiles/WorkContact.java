@@ -9,6 +9,8 @@
 package ClassFiles;
 
 
+
+
 public class WorkContact extends Contact implements Cloneable{
     /** Job title */
     private String title;
@@ -16,6 +18,7 @@ public class WorkContact extends Contact implements Cloneable{
     private String company;
     /** ClassFiles.Contact’s department */
     private String department;
+
 
     /**
      * This Constructs a contact using the information from the contact.java file,
@@ -29,11 +32,13 @@ public class WorkContact extends Contact implements Cloneable{
      * @param company the company's name where the current contact works
      * @param department the company's department where the current contact works
      */
-    public WorkContact(PersonalInfo person, Address address, String phone, String email,String title,String company , String department) {
+    public WorkContact(PersonalInfo person, Address address, String phone, String email,
+                       String title,String company , String department) {
         super(person, address, phone, email);
         this.title = title;
         this.company = company;
         this.department = department;
+
 
     }
     
@@ -49,7 +54,7 @@ public class WorkContact extends Contact implements Cloneable{
         return "Job Title: " + title + "\n" +
                 "Company: " + company + "\n" +
                 "Department: " + department +  "\n\t\t" +
-                this.getPerson().last +","+ this.getPerson().first + "  Phone: " + this.getPhone()  + "\n\t\t" +
+                this.getPerson().last +","+ this.getPerson().first +"(" +this.getPerson().status+")"+"    Phone:" + this.getPhone()  + "\n\t\t" +
                 this.getAddress().getStreetAddress() + "\n\t\t" +
                 this.getAddress().getCity() + ", " + this.getAddress().getState() + " " + this.getAddress().getZip()+"\n\t\t"+
                 this.getEmail() + "\n --------------------------------";
