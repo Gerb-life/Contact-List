@@ -1,11 +1,6 @@
 package ClassFiles;
 
 /**
- * This will this contains two list of contacts and methods to initialize read
- * and populate the two tables, print results, and will prompt the user for input.
- * Then it will display all the information.
- * @author Gabe Rodriguz
-/**
  * This class is our driver  prompts the user for files to use then creates
  * multiple list and methods to read and populate the two tables, print results,
  * Then it will display all the information.
