@@ -1,7 +1,7 @@
 package ClassFiles;
 
 /**
- * This class is our driver  prompts the user for files to use then creates
+ * This class is our driver, it'll prompts the user for files to use then creates
  * multiple list and methods to read and populate the two tables, print results,
  * Then it will display all the information.
  * @author Gabe Rodriguz
