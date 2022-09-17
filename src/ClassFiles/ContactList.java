@@ -270,7 +270,7 @@ public class ContactList {
     
     
     /**
-     * If the value of the group is correct it will retunr the value enterd by the user
+     * If the value of the group is correct it will return the value entered by the user
      * otherwise it will print a  Invalid entry, please try again.
      * @return returns the correct value of group
      */
