@@ -1,6 +1,17 @@
 package ClassFiles;
 
-
+/**
+ * This will this contains two list of contacts and methods to initialize read
+ * and populate the two tables, print results, and will prompt the user for input.
+ * Then it will display all the information.
+ * @author Gabe Rodriguz
+/**
+ * This class is our driver  prompts the user for files to use then creates
+ * multiple list and methods to read and populate the two tables, print results,
+ * Then it will display all the information.
+ * @author Gabe Rodriguz
+ * @version 1.5
+ */
 import Enums.MaritalStatus;
 
 import java.io.*;
@@ -8,6 +19,11 @@ import java.io.*;
 
 import java.util.Scanner;
 
+/**
+ * Creates multiple list  and methods to initialize, read
+ * and populate the two tables, print results, and will prompt the user for input.
+ * Then it will display all the information.
+ */
 public class ContactList {
     public Table<Contact> createTable(File f){
         Table<Contact> tb = new Table<>();
@@ -28,8 +44,16 @@ public class ContactList {
         }
         return tb;
     }
-
-
+    
+    
+    /**
+     * Prompts the user to chose an number out of  6 differ options. 
+     * Certain options will prompt the users for more specif  information
+     * that will change the content of the current list and or display the content
+     * of the list.
+     * @file1 the file of group one
+     * @file2 the file of group two
+     */
     public static void display(String file1 , String file2)  {
         int screen = -1;
         ContactList ctl = new ContactList();
@@ -151,6 +175,15 @@ public class ContactList {
 
 
     }
+    
+    /**
+     * will read each file entered by the user line by line and will add the information
+     * to an empty string then add it to a string array and return the array.
+     * @param f the file entered by the user
+     * @return   a string array with the files information
+     * @throws Exception if the file does not contain any information or is an invalid
+     *                     file it will throw an Exception.
+     */
     public String[] readFile(File f) throws Exception{
 
         BufferedReader br = new BufferedReader(new FileReader(f));
@@ -168,6 +201,14 @@ public class ContactList {
         br.close();
         return clients;
     }
+    
+    /**
+     * Separates the information from the string arrays and adds the values in to a
+     * different list and returns a new list.
+     * @param people the string array
+     * @param pw the character which helps decide which list is the work list and the personal list
+     * @return  a strings list
+     */
     public String[][] separateContacts(String[] people, Character pw){
         //if the first letter of string arr is p then separate contacts based on number of attributes
         if(pw == 'p' || pw == 'P'){
@@ -190,7 +231,15 @@ public class ContactList {
 
         return null;
     }
-
+    
+    
+    /**
+     * Creates the contact's information such as email, phone number, label from the string
+     * array and return an element of contact with personal info.
+     * @param strings the string array with
+     * @param pw the character which helps decided if the list is either work or personal info
+     * @return return an element of contact with personal info
+     */
     public Contact createContacts(String[] strings , Character pw){
             String email ;
             String phone ;
@@ -218,7 +267,13 @@ public class ContactList {
         }
         return null;
     }
-
+    
+    
+    /**
+     * If the value of the group is correct it will retunr the value enterd by the user
+     * otherwise it will print a  Invalid entry, please try again.
+     * @return returns the correct value of group
+     */
     public int queryInt() {
         Scanner stdin = new Scanner(System.in);
         while (true) {
@@ -229,7 +284,16 @@ public class ContactList {
             }
         }
     }
-
+    
+    
+    /**
+     * Displays the result of the intersection between two linked list
+     * @param tb the linked list
+     * @param attribute the sting attribute of the list (i.e. first of last etc.)
+     * @param value the string value of the list (i.e. name etc.)
+     * @param ISR the character for the intersection
+     * @param groupNum the number for the group
+     */
     public void callIntersectSelectRemove(Table tb , String attribute , String value , Character ISR, int groupNum){
         Table<Contact> tbNew;
         if(ISR == 'I'){
@@ -251,7 +315,15 @@ public class ContactList {
             System.out.println("============== Group "+ groupNum + " ==============");
         }
     }
-
+    
+    
+    /**
+     * Displays the result of the Union between two linked list
+     * @param tb the fist linked list
+     * @param tb2 the second linked list
+     * @param UD the character for union
+     * @param groupNum the number for the group
+     */
     public void callUnionDifference(Table tb,Table tb2 , Character UD, int groupNum){
         Table<Contact> tbNew;
         if(UD == 'U'){
@@ -285,7 +357,10 @@ public class ContactList {
     }
 
 
-
+    /**
+     * Prompts the user for two different files and then Calls the display method
+     * @param args The source file path
+     */
     public static void main(String[] args) {
         System.out.println("Please enter file for group 1");
         Scanner sc = new Scanner(System.in);
