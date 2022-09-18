@@ -1,6 +1,11 @@
 package ClassFiles;
 
-
+/**
+ * This class implements a Table a genetics linked list that contains the contact,s
+ * information and various methods that interact with the linked lists.
+ * @author Gabe Rodriguez, Alejandro Ordonez
+ * @version 2.5
+ */
 
 import java.util.NoSuchElementException;
 
@@ -28,7 +33,10 @@ public class Table <T> {
     private Table.Node last;
     private int count;
 
-    //addFirst
+    /**
+     * Adds a new node to the beginning of the list
+     * @param item the new node
+     */
     public void addFirst(T item){
         var node = new Table.Node(item);
         if(isEmpty()) {
@@ -41,10 +49,20 @@ public class Table <T> {
             count++;
         }
     }
+    
+    /**
+     * Returns null id the first node of the list is null which means that the
+     * linked list is empty
+     * @return null if the list is empty
+     */
     private boolean isEmpty(){
         return first == null ;
     }
-    //addLast
+    
+    /**
+     * Adds a new node to the end of the linked list
+     * @param item new node to add to the linked list
+     */
     public void addLast(T item) {
         var node = new Table.Node(item);
         if (isEmpty()) {
@@ -57,7 +75,11 @@ public class Table <T> {
             count++;
         }
     }
-    //deleteFirts
+    
+    
+    /**
+     * Removes the first node of the current linked list if specified.
+     */
     public void removeFirst(){
         //[10 -> 20 -> 30]
         //first -> 20
@@ -71,7 +93,10 @@ public class Table <T> {
         first.next = null;
         first = second;
     }
-    //deleteLast
+    
+    /**
+     * Removes the last node of the current linked list if specified.
+     */
     public void removeLast(){
         //[10 -> 20 -> 30]
         // last -> 30
@@ -91,6 +116,11 @@ public class Table <T> {
 
     }
 
+
+    /**
+     * Removes a node from the linked list in a specific index
+     * @param index the index of node to be removed
+     */
     public void removeNode(int index){
         if(first == null){
              return;
@@ -112,7 +142,14 @@ public class Table <T> {
         temp.next = next;
         count--;
     }
-
+        
+        
+    /**
+     * Returns the node that follows the first node if the node matches
+     * a specific node then sets the current node to that specific node.
+     * @param node the specif node to test the current node
+     * @return the current node
+     */    
     private Table.Node getPrevious(Table.Node node){
         var current = first;
         while (current != null){
@@ -121,11 +158,23 @@ public class Table <T> {
         }
         return null;
     }
-    //contains
+    
+    
+    /**
+     * Returns the index of a specific node if the node exist in the list.
+     * @param item the node the user is looking for
+     * @return  the index of the node
+     */
     public boolean contains(T item){
         return indexOf(item) !=-1;
     }
-    //indexOf
+    
+    
+    /**
+     * Returns the index of a specif node in the list.
+     * @param item the node which index the user is looking for
+     * @return the index of node.
+     */
     public int indexOf(T item){
         int index = 0;
         var current = first;
@@ -137,13 +186,20 @@ public class Table <T> {
     }
 
 
-
+    /**
+     * Returns the current count of the linked list
+     * @return current count of list
+     */
     public int getCount(){
         return this.count;
     }
+    
+    
     /**
      * Method used to get a node at a certain index.
-     * */
+     * @param index the index of node
+     * @return  a node of the list
+     */
     public T getNode(int index){
         Node current = first;
         int count = 0;
@@ -156,13 +212,24 @@ public class Table <T> {
         }
         return null;
     }
-
+    
+    
+    /**
+     * Prints the values of a specific linked list
+     * @param table the linked list
+     */
     public void printTable(Table table){
         for(int i = 0 ; i < this.getCount(); i++){
             System.out.println(this.getNode(i).toString());
         }
     }
-
+    
+    
+    /**
+     * Returns a linked list with the combine values of two linked lists
+     * @param tb1 the linked lists
+     * @return a new list with the values of the two linked lists
+     */
     public Table<T>union(Table<T>tb1){
         Table<T> tb3 = new Table<T>();
         for(int i = 0; i < this.getCount(); i++){
@@ -191,6 +258,14 @@ public class Table <T> {
         return tb3;
     }
     
+    
+    /**
+     * Returns a linked lis of commune values shared by two linked lists
+     * @param tb1 the linked list that intersects the second list
+     * @param attribute the attribute of the list
+     * @param value the value that the user is looking for
+     * @return a linked list the with the commune values
+     */
     public Table<Contact >intersect(Table<Contact> tb1, String attribute , String value){
         Table<Contact> newTable = new Table<>();
 
@@ -202,7 +277,13 @@ public class Table <T> {
 
         return newTable;
     }
-
+    
+    
+    /**
+     * Returns a linked list with the different values of two linked lists
+     * @param tb1 the linked list
+     * @return a new linked list with the different values
+     */
     public Table<Contact> difference(Table<Contact> tb1){
         Table <Contact> tb3 = new Table<>();
         for(int i = 0 ; i < this.getCount(); i++){
@@ -216,6 +297,14 @@ public class Table <T> {
         }
         return tb3;
     }
+    
+    
+    /**
+     * Returns a linked list with a specific values the user might be looking for
+     * @param attribute the attribute of the list
+     * @param value the specific value the user is looking fore
+     * @return  linked list with a specific value.
+     */
     public Table<Contact> select(String attribute , String value){
         Table <Contact> tb3 = new Table<>();
 
@@ -228,6 +317,12 @@ public class Table <T> {
         return tb3;
     }
 
+
+    /**
+     * Remove a specific value from a linked list
+     * @param attribute the attribute  of the list
+     * @param value the value the user wants to remove
+     */
     public void remove(String attribute , String value){
         for(int i = 0 ; i < this.getCount(); i++){
             Contact ct = (Contact) this.getNode(i);
