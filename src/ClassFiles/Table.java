@@ -98,11 +98,7 @@ public class Table <T> {
      * Removes the last node of the current linked list if specified.
      */
     public void removeLast(){
-        //[10 -> 20 -> 30]
-        // last -> 30
-        // lst -> 20
-        // previous -> 20
-        //last -> 20
+        
         if(isEmpty())
             throw new NoSuchElementException();
         if(first == last){
@@ -198,7 +194,7 @@ public class Table <T> {
     /**
      * Method used to get a node at a certain index.
      * @param index the index of node
-     * @return  a node of the list
+     * @return a node of the list
      */
     public T getNode(int index){
         Node current = first;
@@ -227,7 +223,7 @@ public class Table <T> {
     
     /**
      * Returns a linked list with the combine values of two linked lists
-     * @param tb1 the linked lists
+     * @param tb1 a linked lists
      * @return a new list with the values of the two linked lists
      */
     public Table<T>union(Table<T>tb1){
@@ -281,7 +277,7 @@ public class Table <T> {
     
     /**
      * Returns a linked list with the different values of two linked lists
-     * @param tb1 the linked list
+     * @param tb1 a linked list
      * @return a new linked list with the different values
      */
     public Table<Contact> difference(Table<Contact> tb1){
@@ -303,7 +299,7 @@ public class Table <T> {
      * Returns a linked list with a specific values the user might be looking for
      * @param attribute the attribute of the list
      * @param value the specific value the user is looking fore
-     * @return  linked list with a specific value.
+     * @return linked list with a specific value.
      */
     public Table<Contact> select(String attribute , String value){
         Table <Contact> tb3 = new Table<>();
@@ -321,7 +317,7 @@ public class Table <T> {
     /**
      * Remove a specific value from a linked list
      * @param attribute the attribute  of the list
-     * @param value the value the user wants to remove
+     * @param value the user wants to remove
      */
     public void remove(String attribute , String value){
         for(int i = 0 ; i < this.getCount(); i++){
