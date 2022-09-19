@@ -1,10 +1,10 @@
 package ClassFiles;
 
 /**
- * This class is our driver, it'll prompts the user for files to use then creates
+ * This class is our driver, it'll prompt the user for files to use then creates
  * multiple list and methods to read and populate the two tables, print results,
  * Then it will display all the information.
- * @author Gabe Rodriguz
+ * @author Gabe Rodriguz, Alejandro Ordonez
  * @version 1.5
  */
 import Enums.MaritalStatus;
@@ -20,15 +20,21 @@ import java.util.Scanner;
  * Then it will display all the information.
  */
 public class ContactList {
+    /**
+     * This function is used to create a table of contacts given a specific file
+     * @param f- file to create contacts from
+     * @return
+     */
     public Table<Contact> createTable(File f){
         Table<Contact> tb = new Table<>();
         ContactList ctl = new ContactList();
         try {
-            String[] str = ctl.readFile(f);
-            Character pw = str[0].charAt(0);
-            str[0] = str[0].substring(1);
-            String[][] contacts = ctl.separateContacts(str , pw);
+            String[] str = ctl.readFile(f); // create string array from file
+            Character pw = str[0].charAt(0);// first character in the file to determine work or personal contact
+            str[0] = str[0].substring(1);//removing first character from first element in array
+            String[][] contacts = ctl.separateContacts(str , pw);//2d array created from contacts
 
+            //Adding contacts to table
             for(int i = 0 ; i < contacts.length;i++){
                 Contact ct = ctl.createContacts(contacts[i],pw);
                 tb.addFirst(ct);
@@ -68,53 +74,47 @@ public class ContactList {
                     "5) Remove\n" +
                     "6) Print both tables");
 
-                int option = ctl.queryInt();
+                int option = ctl.queryInt(); //making sure that option is an integer
 
                 if (option == 0) { //Exit display
                     System.out.println("Thank you have a nice day!");
                     screen = 0;
-                } else if (option == 1) {
-                    /** do intersect*/
+                } else if (option == 1) {// Perform intersect
+                    //Gather information for intersect.
                     Scanner sc = new Scanner(System.in);
                     System.out.println("Enter Group");
-                    int groupNum = ctl.queryInt();
+                    int groupNum = ctl.queryInt();// making sure group number is numeric
                     System.out.println("Enter attribute");
                     String attribute = sc.next();
                     System.out.println("Enter value");
                     String value = sc.next();
 
-                    Table<Contact> tb3 = new Table<>();
                     if (groupNum == 1) {
-
-                        ctl.callIntersectSelectRemove(tb , attribute,value,'I',groupNum);
+                        ctl.callIntersectSelectRemove(tb,tb2 , attribute,value,'I',groupNum);
                     } else if (groupNum == 2) {
-
-                        ctl.callIntersectSelectRemove(tb2 , attribute , value ,'I', groupNum);
+                        ctl.callIntersectSelectRemove(tb2,tb , attribute , value ,'I', groupNum);
                     }
                     else{
                         System.out.println("Please enter valid group number (1 or 2)");
                     }
-                } else if (option == 2) {
-                    /** do Difference*/
 
+                } else if (option == 2) {// Perform difference
+                    // Gather information needed for difference.
                     System.out.println("Enter Group");
-                    int groupNum = ctl.queryInt();
-                    Table<Contact> tb3 ;
+                    int groupNum = ctl.queryInt();// making sure group number is numeric
                     if (groupNum == 1) {
-
                         ctl.callUnionDifference(tb,tb2,'D',1);
-                    } else if (groupNum == 2) {
 
+                    } else if (groupNum == 2) {
                         ctl.callUnionDifference(tb,tb2,'D',2);
+
                     } else {
                         System.out.println("Please enter valid group number (1 or 2)");
                     }
-                } else if (option == 3) {
-                    /** do Union*/
-
+                } else if (option == 3) {// perform Union
+                    //Gather info needed for union
                     System.out.println("Enter Group");
-                    int groupNum = ctl.queryInt();
-                    Table<Contact> tb3;
+                    int groupNum = ctl.queryInt();// making sure group number is numeric
                     if (groupNum == 1) {
                         ctl.callUnionDifference(tb,tb2,'U',groupNum);
                     } else if (groupNum == 2) {
@@ -125,50 +125,48 @@ public class ContactList {
                     }
 
 
-                } else if (option == 4) {
-                    /** do Select*/
+                } else if (option == 4) {//Perform Select
+                    //Gather information for select
                     Scanner sc = new Scanner(System.in);
                     System.out.println("Enter Group");
-                    int groupNum = ctl.queryInt();
-                    System.out.println("Enter attribute");
-                    String attribute = sc.next();
-                    System.out.println("Enter value");
-                    String value = sc.next();
-                    Table<Contact> tb3;
-                    if (groupNum == 1) {
-                        ctl.callIntersectSelectRemove(tb,attribute,value,'S',groupNum);
-                    } else if (groupNum == 2) {
-                        ctl.callIntersectSelectRemove(tb2,attribute,value,'S',groupNum);
-                    }
-
-                } else if (option == 5) {
-                    /** do Remove*/
-                    Scanner sc = new Scanner(System.in);
-                    System.out.println("Enter Group");
-                    int groupNum = ctl.queryInt();
+                    int groupNum = ctl.queryInt();// making sure group number is numeric
                     System.out.println("Enter attribute");
                     String attribute = sc.next();
                     System.out.println("Enter value");
                     String value = sc.next();
 
                     if (groupNum == 1) {
-                        ctl.callIntersectSelectRemove(tb,attribute,value,'R',groupNum);
+                        ctl.callIntersectSelectRemove(tb,tb2,attribute,value,'S',groupNum);
                     } else if (groupNum == 2) {
-                        ctl.callIntersectSelectRemove(tb2,attribute,value,'R',groupNum);
+                        ctl.callIntersectSelectRemove(tb2,tb,attribute,value,'S',groupNum);
+                    }
+                    else{
+                        System.out.println("Please enter valid group number (1 or 2)");
                     }
 
-                } else if (option == 6) {
-                    /** do Print Both*/
+                } else if (option == 5) {//Perform remove
+                   //Gather information for remove
+                    Scanner sc = new Scanner(System.in);
+                    System.out.println("Enter attribute");
+                    String attribute = sc.next();
+                    System.out.println("Enter value");
+                    String value = sc.next();
+                    // removing attribute and value from both tables.
+                    ctl.callIntersectSelectRemove(tb,tb2,attribute,value,'R',1);
+                    ctl.callIntersectSelectRemove(tb2,tb,attribute,value,'R',2);
+
+                } else if (option == 6) {//Print both
+
+                    System.out.println("============== Group "+ 1 + " ==============");
                     tb.printTable(tb);
+                    System.out.println("============== Group "+ 1 + " ==============");
+                    System.out.println("============== Group "+ 2 + " ==============");
                     tb2.printTable(tb2);
+                    System.out.println("============== Group "+ 2 + " ==============");
                 } else {
                     System.out.println("Invalid option");
                 }
-
             }
-
-
-
     }
     
     /**
@@ -180,7 +178,6 @@ public class ContactList {
      *                     file it will throw an Exception.
      */
     public String[] readFile(File f) throws Exception{
-
         BufferedReader br = new BufferedReader(new FileReader(f));
         String st;
         String temp = "";
@@ -188,10 +185,10 @@ public class ContactList {
         while((st = br.readLine()) != null){
             temp += st;
         }
-       clients = temp.split(",");
+       clients = temp.split(","); //splitting string in temp using "," to separate
+        //removing leading and trailing spaces
         for(int i = 0 ; i < clients.length; i++){
             clients[i] = clients[i].trim();
-
         }
         br.close();
         return clients;
@@ -212,8 +209,8 @@ public class ContactList {
                 contactsP[i/9][i%9] = people[i];
             }
             return contactsP;
-
         }
+        //if the first letter of string arr is w then separate contcts based on number of attributes.
         else if(pw == 'w' || pw == 'W'){
             String[][] contactsW = new String[people.length/12][12];
             for(int i = 0 ; i < people.length; i++){
@@ -221,13 +218,9 @@ public class ContactList {
             }
             return contactsW;
         }
-
-
-
         return null;
     }
-    
-    
+
     /**
      * Creates the contact's information such as email, phone number, label from the string
      * array and return an element of contact with personal info.
@@ -239,6 +232,7 @@ public class ContactList {
             String email ;
             String phone ;
             String label ;
+            //creating personal contact and sets marital status to NA
         if(pw == 'p' || pw == 'P'){
             PersonalInfo ps = new PersonalInfo(strings[0] , strings[1] ,MaritalStatus.NA);
             email = strings[2];
@@ -246,28 +240,24 @@ public class ContactList {
             Contact.Address address = new Contact.Address(strings[4] , strings[5] , strings[6] , strings[7]);
             label = strings[8];
 
-            Contact personal = new PersonalContact(ps , address , phone , email , label);
-
-            return personal;
+            return new PersonalContact(ps , address , phone , email , label);
         }
+        //creating work contact
         else if(pw == 'w' || pw == 'W'){
             PersonalInfo ps = new PersonalInfo(strings[0] , strings[1] , MaritalStatus.valueOf(strings[2].toUpperCase()));
             email = strings[3];
             phone = strings[4];
             Contact.Address address = new Contact.Address(strings[5] , strings[6] , strings[7] , strings[8]);
 
-            Contact work = new WorkContact(ps , address , phone , email , strings[9] , strings[10] , strings[11]);
-
-            return work;
+            return new WorkContact(ps , address , phone , email , strings[9] , strings[10] , strings[11]);
         }
         return null;
     }
     
     
     /**
-     * If the value of the group is correct it will return the value entered by the user
-     * otherwise it will print a  Invalid entry, please try again.
-     * @return returns the correct value of group
+     *This method checks to see whether the input from the user is an integer
+     * if it is not then ask the user to try again.
      */
     public int queryInt() {
         Scanner stdin = new Scanner(System.in);
@@ -282,38 +272,37 @@ public class ContactList {
     
     
     /**
-     * Displays the result of the intersection between two linked list
+     * Displays the result from Intersect Select or Remove based in the ISR character
+     * This function was created in an attempt to remove redundant code.
      * @param tb the linked list
      * @param attribute the sting attribute of the list (i.e. first of last etc.)
      * @param value the string value of the list (i.e. name etc.)
      * @param ISR the character for the intersection
      * @param groupNum the number for the group
      */
-    public void callIntersectSelectRemove(Table tb , String attribute , String value , Character ISR, int groupNum){
+    public void callIntersectSelectRemove(Table tb ,Table tb2, String attribute , String value , Character ISR, int groupNum){
         Table<Contact> tbNew;
-        if(ISR == 'I'){
+        if(ISR == 'I'){//perform intersect
             System.out.println("============== Group "+ groupNum + " ==============");
-            tbNew = tb.intersect(tb , attribute , value);
+            tbNew = tb.intersect(tb2 , attribute , value);
             tbNew.printTable(tbNew);
             System.out.println("============== Group "+ groupNum + " ==============");
         }
-        else if(ISR == 'S'){
+        else if(ISR == 'S'){//perform select
             System.out.println("============== Group "+ groupNum + " ==============");
             tbNew = tb.select(attribute , value);
             tbNew.printTable(tbNew);
             System.out.println("============== Group "+ groupNum + " ==============");
         }
-        else if(ISR == 'R'){
-            System.out.println("============== Group "+ groupNum + " ==============");
+        else if(ISR == 'R'){//perform remove
             tb.remove(attribute, value);
-            tb.printTable(tb);
-            System.out.println("============== Group "+ groupNum + " ==============");
         }
     }
     
     
     /**
-     * Displays the result of the Union between two linked list
+     * Displays the result of Union or Difference on 2 tables based on the UD character
+     * This function was also created in an attempt to reduce code.
      * @param tb the fist linked list
      * @param tb2 the second linked list
      * @param UD the character for union
@@ -321,7 +310,7 @@ public class ContactList {
      */
     public void callUnionDifference(Table tb,Table tb2 , Character UD, int groupNum){
         Table<Contact> tbNew;
-        if(UD == 'U'){
+        if(UD == 'U'){//perform union based on group number
             if (groupNum == 1) {
                 System.out.println("============== Group1,Group2 ==============");
                 tbNew = tb.union(tb2);
@@ -334,7 +323,7 @@ public class ContactList {
                 System.out.println("============== Group2,Group1 ==============");
             }
         }
-        else if(UD == 'D'){
+        else if(UD == 'D'){//perform difference based on group number
             if(groupNum == 1){
                 System.out.println("==============Group 1 ==============");
                 tbNew = tb.difference(tb2);
@@ -354,7 +343,7 @@ public class ContactList {
 
     /**
      * Prompts the user for two different files and then Calls the display method
-     * @param args The source file path
+     * @param args Command line arguments
      */
     public static void main(String[] args) {
         System.out.println("Please enter file for group 1");

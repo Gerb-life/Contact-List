@@ -2,7 +2,7 @@
 /**
  * This class implements a contact which consist of the contact's name, last name,
  * marital status, address, phone number and email.
- * @author Gabe Rodriguez
+ * @author Gabe Rodriguez, Alejandro Ordonez
  * @version 2.5
  */
 package ClassFiles;
@@ -10,7 +10,7 @@ package ClassFiles;
 import Enums.MaritalStatus;
 import Interfaces.ContactIF;
 
-import java.util.Locale;
+
 
 public class Contact implements ContactIF, Cloneable{
     /** Personal information */
@@ -42,8 +42,7 @@ public class Contact implements ContactIF, Cloneable{
 
 
     /**
-     * This class implements an address of contact, the address contains the street address,
-     * city, state and a 5 dijit code
+     * A contact contains the inner class Address which contains the values streetAddress, city , state , and zip.
      * @author Gabriel Rodriguez
      */
     static class Address{

@@ -2,7 +2,7 @@
  * This class is an extension of the contact class and implements a personalContact
  * which contains the label of the contact. The contact's personal info such as name
  * las name, phone number, and email.
- * @author Gabe Rodriguez
+ * @author Gabe Rodriguez, Alejandro Ordonez
  * @version 1.5
  */
 package ClassFiles;

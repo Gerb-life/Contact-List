@@ -2,7 +2,7 @@ package ClassFiles;
 /**
  * This class implements a PersonalInfo which consist of the contact's name, last name,
  * marital status.
- * @author Gabe Rodriguez
+ * @author Gabe Rodriguez, Alejandro Ordonez
  * @version 1.0
  */
 import Enums.MaritalStatus;

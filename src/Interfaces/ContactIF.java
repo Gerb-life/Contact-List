@@ -1,5 +1,9 @@
 package Interfaces;
 
+/**
+ * This is an interface that includes the different methods that the contacts will implement
+ * @Author Dr. Kreahling
+ */
 public interface ContactIF {
     public final static int MAX_PHONE_NUM = 10;
     /**

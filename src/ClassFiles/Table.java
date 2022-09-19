@@ -58,63 +58,6 @@ public class Table <T> {
     private boolean isEmpty(){
         return first == null ;
     }
-    
-    /**
-     * Adds a new node to the end of the linked list
-     * @param item new node to add to the linked list
-     */
-    public void addLast(T item) {
-        var node = new Table.Node(item);
-        if (isEmpty()) {
-            first = last = node;
-            count++;
-        }
-        else {
-            last.next = node;
-            last = node;
-            count++;
-        }
-    }
-    
-    
-    /**
-     * Removes the first node of the current linked list if specified.
-     */
-    public void removeFirst(){
-        //[10 -> 20 -> 30]
-        //first -> 20
-        if(isEmpty())
-            throw new NoSuchElementException();
-        if(first == last){
-            first = last = null;
-            return;
-        }
-        var second = first.next;
-        first.next = null;
-        first = second;
-    }
-    
-    /**
-     * Removes the last node of the current linked list if specified.
-     */
-    public void removeLast(){
-        //[10 -> 20 -> 30]
-        // last -> 30
-        // lst -> 20
-        // previous -> 20
-        //last -> 20
-        if(isEmpty())
-            throw new NoSuchElementException();
-        if(first == last){
-            first = last = null;
-            return;
-        }
-
-        var previous = getPrevious(last);
-        last = previous;
-        last.next = null;
-
-    }
 
 
     /**
@@ -122,44 +65,31 @@ public class Table <T> {
      * @param index the index of node to be removed
      */
     public void removeNode(int index){
+        //if head node is null just return
         if(first == null){
              return;
         }
-        Table.Node temp = first;
-
+        Table.Node temp = first;//temp node
+        //if removing first node then set first to temp.next
         if(index == 0){
             first = temp.next;
             return;
         }
-
+        //finding node to be removed
         for (int i = 0; temp != null && i < index - 1; i++) {
             temp = temp.next;
         }
+        //if at the end of the list
         if (temp == null || temp.next == null) {
             return;
         }
+        //unlinking node to be removed from list
         Table.Node next = temp.next.next;
         temp.next = next;
         count--;
     }
-        
-        
-    /**
-     * Returns the node that follows the first node if the node matches
-     * a specific node then sets the current node to that specific node.
-     * @param node the specif node to test the current node
-     * @return the current node
-     */    
-    private Table.Node getPrevious(Table.Node node){
-        var current = first;
-        while (current != null){
-            if (current.next == node) return current;
-            current = current.next;
-        }
-        return null;
-    }
-    
-    
+
+
     /**
      * Returns the index of a specific node if the node exist in the list.
      * @param item the node the user is looking for
@@ -168,8 +98,7 @@ public class Table <T> {
     public boolean contains(T item){
         return indexOf(item) !=-1;
     }
-    
-    
+
     /**
      * Returns the index of a specif node in the list.
      * @param item the node which index the user is looking for
@@ -232,20 +161,21 @@ public class Table <T> {
      */
     public Table<T>union(Table<T>tb1){
         Table<T> tb3 = new Table<T>();
+        //adding contacts from this table to 3rd table
         for(int i = 0; i < this.getCount(); i++){
             tb3.addFirst(this.getNode(i));
         }
-
+        //adding contacts from tb1 table to 3rd table
        for(int i = 0 ; i < tb1.getCount(); i++){
            tb3.addFirst(tb1.getNode(i));
        }
-
+       //removing duplicate nodes from 3rd table
        for(int i = 0 ; i < this.getCount();i++){
            for(int j = 0 ; j < tb1.getCount(); j++){
-               Contact ct1 = (Contact) this.getNode(i);
-               Contact ct2 = (Contact) tb1.getNode(j);
+               Contact ct1 = (Contact) this.getNode(i);//contact from this table
+               Contact ct2 = (Contact) tb1.getNode(j);//contact from tb1
                if(ct1.equalsContact(ct2)){
-                   if(tb3.contains(this.getNode(i)) && tb3.contains(tb1.getNode(j))){
+                   if(tb3.contains(this.getNode(i)) && tb3.contains(tb1.getNode(j))){//if tb3 contains both remove tb1
                        tb3.remove("first" , ((Contact) tb1.getNode(j)).getPerson().first);
                        tb3.count--;
                    }
@@ -266,13 +196,19 @@ public class Table <T> {
      * @param value the value that the user is looking for
      * @return a linked list the with the commune values
      */
-    public Table<Contact >intersect(Table<Contact> tb1, String attribute , String value){
-        Table<Contact> newTable = new Table<>();
+    public Table<T>intersect(Table<T> tb1, String attribute , String value){
+        Table<T> newTable = new Table<>();
 
-        for (int i = 0; i < tb1.getCount(); i++) {
-            if (tb1.getNode(i).hasValue(attribute, value)) {
-                newTable.addFirst(tb1.getNode(i));
-            }
+        for (int i = 0; i < this.getCount(); i++) {
+           for(int j = 0 ; j < tb1.getCount(); j++){
+               Contact ct1 = (Contact)this.getNode(i);
+               Contact ct2 = (Contact) tb1.getNode(j);
+               if(ct1.equalsContact(ct2)){
+                   if(! newTable.contains(this.getNode(i))){
+                       newTable.addFirst(this.getNode(i));
+                   }
+               }
+           }
         }
 
         return newTable;
