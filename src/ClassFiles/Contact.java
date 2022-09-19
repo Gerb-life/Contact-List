@@ -2,7 +2,7 @@
 /**
  * This class implements a contact which consist of the contact's name, last name,
  * marital status, address, phone number and email.
- * @author Gabe Rodriguez
+ * @author Gabe Rodriguez, Alejandro Ordonez
  * @version 2.5
  */
 package ClassFiles;
