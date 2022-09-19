@@ -51,7 +51,7 @@ public class Table <T> {
     }
     
     /**
-     * Returns null id the first node of the list is null which means that the
+     * Returns null if the first node of the list is null which means that the
      * linked list is empty
      * @return null if the list is empty
      */
