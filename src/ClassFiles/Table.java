@@ -119,7 +119,7 @@ public class Table <T> {
 
     /**
      * Removes a node from the linked list in a specific index
-     * @param index the index of node to be removed
+     * @param the index of node to be removed
      */
     public void removeNode(int index){
         if(first == null){
