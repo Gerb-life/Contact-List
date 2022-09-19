@@ -2,7 +2,7 @@
  * This class is an extension of the contact class and implements a personalContact
  * which contains the label of the contact. The contact's personal info such as name
  * las name, phone number, and email.
- * @author Gabe Rodriguez
+ * @author Gabe Rodriguez, Alejandro Ordonez
  * @version 1.5
  */
 package ClassFiles;
@@ -11,7 +11,7 @@ public class PersonalContact extends Contact implements Cloneable{
     /** Label for grouping personal contacts */
     private String label;
 
-    //Total of 9 attributes
+    
     /**
      * This Constructs a contact using the information from the contact.java file,
      * with the name, last name, marital status, address, phone number and label of the contact
