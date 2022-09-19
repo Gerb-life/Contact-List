@@ -3,7 +3,7 @@
  * Which contains the title of the contact the company the contact works for and
  * the department of the contact as well as the contact's personal info such as name
  * last name, phone number, and email.
- * @author Gabe Rodriguez
+ * @author Gabe Rodriguez, Alejandro Ordonez
  * @version 1.5
  */
 package ClassFiles;
