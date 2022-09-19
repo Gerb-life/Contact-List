@@ -11,7 +11,7 @@ public class PersonalContact extends Contact implements Cloneable{
     /** Label for grouping personal contacts */
     private String label;
 
-    //Total of 9 attributes
+    
     /**
      * This Constructs a contact using the information from the contact.java file,
      * with the name, last name, marital status, address, phone number and label of the contact
