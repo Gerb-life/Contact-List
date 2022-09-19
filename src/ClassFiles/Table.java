@@ -81,8 +81,6 @@ public class Table <T> {
      * Removes the first node of the current linked list if specified.
      */
     public void removeFirst(){
-        //[10 -> 20 -> 30]
-        //first -> 20
         if(isEmpty())
             throw new NoSuchElementException();
         if(first == last){
